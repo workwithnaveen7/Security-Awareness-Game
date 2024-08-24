@@ -3,63 +3,47 @@ import sys
 import random
 import webbrowser
 
-# Initialize Pygame
+
 pygame.init()
 
-# Screen settings
 WIDTH, HEIGHT = 1024, 768
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Security Awareness Game")
 
-# Colors
+#colours
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 GRAY = (100, 100, 100)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
-BLUE = (0, 0, 255)             # Standard Blue
-CYAN = (0, 255, 255)           # Cyan
-MAGENTA = (255, 0, 255)        # Magenta
-YELLOW = (255, 255, 0)         # Yellow
-ORANGE = (255, 165, 0)         # Orange
-PURPLE = (128, 0, 128)         # Purple
-PINK = (255, 192, 203)         # Light Pink
-LIGHT_GRAY = (211, 211, 211)   # Light Gray
-DARK_GRAY = (169, 169, 169)    # Dark Gray
-BROWN = (165, 42, 42)          # Brown
-TURQUOISE = (64, 224, 208)     # Turquoise
-VIOLET = (238, 130, 238)       # Violet
-LIME = (50, 205, 50)           # Lime Green
-INDIGO = (75, 0, 130)          # Indigo
-TEAL = (0, 128, 128)           # Teal
+LIME = (50, 205, 50)
 
 
-# Font
+
+
 font = pygame.font.Font(None, 36)
 
-# Load sounds
 correct_sound = pygame.mixer.Sound('sounds/correct.wav')
 incorrect_sound = pygame.mixer.Sound('sounds/incorrect.wav')
 bg_music = pygame.mixer.music.load('sounds/bgm.mp3')
-pygame.mixer.music.play(-1)  # Loop the music
+pygame.mixer.music.play(-1)  
 
-# Load images
+
 background_image = pygame.image.load('images/bgimage.jpeg')
 background_image = pygame.transform.scale(background_image, (WIDTH, HEIGHT))
 hacker_image = pygame.image.load('images/hacker.png')
-hacker_image = pygame.transform.scale(hacker_image, (200, 200))  # Resize as needed
+hacker_image = pygame.transform.scale(hacker_image, (200, 200))  
 user_image = pygame.image.load('images/user.png')
-user_image = pygame.transform.scale(user_image, (200, 200))  # Resize as needed
+user_image = pygame.transform.scale(user_image, (200, 200))  
 
-# Positions for interactive images
+
 hacker_rect = pygame.Rect(50, HEIGHT - 200, 150, 150)
 user_rect = pygame.Rect(WIDTH - 200, HEIGHT - 200, 150, 150)
 
-# Health settings
 hacker_health = 100
 user_health = 100
 
-# Define questions and answers
+
 questions = [
 
     {
@@ -256,23 +240,18 @@ questions = [
     }
 ]
 
-# Font
-font = pygame.font.Font(None, 48)  # Standard font size
-title_font = pygame.font.Font(None, 100)  # Larger font for the title
-button_font = pygame.font.Font(None, 50)  # Font for buttons
-question_font = pygame.font.Font(None, 60)  # Font for questions
-explanation_font = pygame.font.Font(None, 45)  # Font for explanations
+#fontss
+font = pygame.font.Font(None, 48)  
+title_font = pygame.font.Font(None, 100) 
+button_font = pygame.font.Font(None, 50)  
 
-# Music state
+question_font = pygame.font.Font(None, 60)  
+explanation_font = pygame.font.Font(None, 45)  
+
+
 music_on = True
 
-# Screen sizes
-screen_sizes = [(1024, 768), (800, 600), (1280, 720)]
-current_screen_size_index = 0
 
-
-
-# Centered text function
 def render_text_centered(text, y_pos, color=BLACK, use_question_font=False, font_type=None):
     font_to_use = font_type if font_type else (question_font if use_question_font else font)
     text_surface = font_to_use.render(text, True, color)
@@ -304,7 +283,6 @@ def render_wrapped_text(text, y_pos, color=BLACK, font_type=font, max_width=WIDT
 
 
 
-# Draw button
 def draw_button(text, y_pos, color, font_type=button_font):
     text_surface = font_type.render(text, True, WHITE)
     text_width = text_surface.get_width() + 40
@@ -320,10 +298,6 @@ def draw_button(text, y_pos, color, font_type=button_font):
     return button_rect
 
 
-
-
-
-# Draw health bar
 def draw_health_bar(health, max_health, x, y):
     bar_width = 20
     bar_height = 100
@@ -340,28 +314,18 @@ def toggle_music():
         pygame.mixer.music.unpause()
     music_on = not music_on
 
-def change_screen_size():
-    global WIDTH, HEIGHT, screen
-    global current_screen_size_index
-    WIDTH, HEIGHT = screen_sizes[current_screen_size_index]
-    screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    pygame.display.set_caption("Security Awareness Game")
+
 
 def settings_screen():
-    global current_screen_size_index
+    global music_on
 
     screen.blit(background_image, (0, 0))
     render_text_centered("Settings", 150, WHITE)
 
-    # Music On/Off
-    music_button_text = "Turn Music Off" if music_on else "Turn Music On"
+    #Music On/Off
+    music_button_text = "Turn Music: Off" if music_on else "Turn Music: On"
     music_button = draw_button(music_button_text, 300, GRAY)
 
-    # Screen Size Options
-    screen_size_text = f"Screen Size: {screen_sizes[current_screen_size_index][0]}x{screen_sizes[current_screen_size_index][1]}"
-    screen_size_button = draw_button(screen_size_text, 400, GRAY)
-
-    # Back Button
     back_button = draw_button("Back to Menu", HEIGHT - 100, GRAY)
 
     pygame.display.flip()
@@ -375,23 +339,10 @@ def settings_screen():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if music_button.collidepoint(event.pos):
                     toggle_music()
-                    music_button_text = "Turn Music Off" if music_on else "Turn Music On"
+                    music_button_text = "Turn Music: Off" if music_on else "Turn Music: On"
                     screen.blit(background_image, (0, 0))
                     render_text_centered("Settings", 150, WHITE)
                     music_button = draw_button(music_button_text, 300, GRAY)
-                    screen_size_text = f"Screen Size: {screen_sizes[current_screen_size_index][0]}x{screen_sizes[current_screen_size_index][1]}"
-                    screen_size_button = draw_button(screen_size_text, 400, GRAY)
-                    back_button = draw_button("Back to Menu", HEIGHT - 100, GRAY)
-                    pygame.display.flip()
-                elif screen_size_button.collidepoint(event.pos):
-                    current_screen_size_index = (current_screen_size_index + 1) % len(screen_sizes)
-                    change_screen_size()
-                    screen.blit(background_image, (0, 0))
-                    render_text_centered("Settings", 150, WHITE)
-                    music_button_text = "Turn Music Off" if music_on else "Turn Music On"
-                    music_button = draw_button(music_button_text, 300, GRAY)
-                    screen_size_text = f"Screen Size: {screen_sizes[current_screen_size_index][0]}x{screen_sizes[current_screen_size_index][1]}"
-                    screen_size_button = draw_button(screen_size_text, 400, GRAY)
                     back_button = draw_button("Back to Menu", HEIGHT - 100, GRAY)
                     pygame.display.flip()
                 elif back_button.collidepoint(event.pos):
@@ -408,17 +359,14 @@ def credits_screen():
     screen.blit(background_image, (0, 0))
     render_text_centered("Credits", 150, WHITE, font_type=button_font)
     
-    # Load logo images
-    website_logo = pygame.image.load('images/website_logo.png')  # Replace with your logo file path
-    linkedin_logo = pygame.image.load('images/linkedin_logo.png')  # Replace with your logo file path
-    github_logo = pygame.image.load('images/github_logo.png')  # Replace with your logo file path
+    website_logo = pygame.image.load('images/website_logo.png')  
+    linkedin_logo = pygame.image.load('images/linkedin_logo.png')  
+    github_logo = pygame.image.load('images/github_logo.png')  
 
-    # Resize logos if needed
     website_logo = pygame.transform.scale(website_logo, (100, 100))
     linkedin_logo = pygame.transform.scale(linkedin_logo, (100, 100))
     github_logo = pygame.transform.scale(github_logo, (100, 100))
 
-    # Display logos and define clickable areas
     website_rect = pygame.Rect(WIDTH // 2 - 150, 250, 100, 100)
     linkedin_rect = pygame.Rect(WIDTH // 2 - 50, 250, 100, 100)
     github_rect = pygame.Rect(WIDTH // 2 + 50, 250, 100, 100)
@@ -427,15 +375,15 @@ def credits_screen():
     screen.blit(linkedin_logo, linkedin_rect.topleft)
     screen.blit(github_logo, github_rect.topleft)
 
-    # Store clickable areas for each logo
+    #clickable link
     link_rects["Website"] = website_rect
     link_rects["LinkedIn"] = linkedin_rect
     link_rects["GitHub"] = github_rect
     
-    # Display text for names (optional)
-    render_text_centered("Developed by Naveen", 400, WHITE)
+
+    render_text_centered("Developed by Naveen •ᴗ• ", 400, WHITE)
     
-    # Back Button
+
     back_button = draw_button("Back to Menu", HEIGHT - 100, GRAY)
 
     pygame.display.flip()
@@ -462,29 +410,26 @@ def credits_screen():
 
 
 
-# Main Menu
 def main_menu():
     screen.blit(background_image, (0, 0))
 
-    # Create larger font for the title
-    larger_title_font = pygame.font.Font(None, 100)  # Ensure this line is creating the font
+    # font for title
+    larger_title_font = pygame.font.Font(None, 100)  
 
-    # Render the title with the larger font
     title_text_surface = larger_title_font.render("Security Awareness Game", True, LIME)
     title_text_rect = title_text_surface.get_rect(center=(WIDTH // 2, 200))
     screen.blit(title_text_surface, title_text_rect)
 
-    # Add a subtitle below the title
-    subtitle_font = pygame.font.Font(None, 50)  # Subtitle font
+    subtitle_font = pygame.font.Font(None, 50) 
     subtitle_text_surface = subtitle_font.render("Test Your Knowledge and Stay Safe Online!", True, WHITE)
     subtitle_text_rect = subtitle_text_surface.get_rect(center=(WIDTH // 2, 300))
     screen.blit(subtitle_text_surface, subtitle_text_rect)
 
-    # Add decorative lines
+
     #pygame.draw.line(screen, BLACK, (150, 180), (850, 180), 5)  # Line above the title
     pygame.draw.line(screen, BLACK, (150, 260), (850, 260), 5)  # Line below the subtitle
 
-    # Add buttons
+
     start_button = draw_button("Start Game", 500, GRAY, font_type=button_font)
     settings_button = draw_button("Settings", 600, GRAY, font_type=button_font)
     credits_button = draw_button("Credits", 700, GRAY, font_type=button_font)
@@ -506,8 +451,6 @@ def main_menu():
                     credits_screen()
 
 
-
-# Handle player input
 def handle_input(scenario, *buttons):
     while True:
         for event in pygame.event.get():
@@ -518,9 +461,8 @@ def handle_input(scenario, *buttons):
                 for button in buttons:
                     if button.collidepoint(event.pos):
                         button_index = buttons.index(button)
-                        return button_index  # Return the index of the selected option
+                        return button_index  
 
-# Game Scenario
 def game_scenario(question_data):
     global hacker_health, user_health
     screen.blit(background_image, (0, 0))
@@ -528,9 +470,9 @@ def game_scenario(question_data):
     render_wrapped_text(question_data["question"], 150, color=WHITE, font_type=question_font)
     
     buttons = []
-    y_pos = 350  # Adjust the y position for the options
+    y_pos = 350  
     for i, option in enumerate(question_data["options"]):
-        button = draw_button(option, y_pos + i * 80, GRAY)  # Adjust spacing between options
+        button = draw_button(option, y_pos + i * 80, GRAY)  
         buttons.append(button)
     
     screen.blit(hacker_image, hacker_rect.topleft)
@@ -552,7 +494,6 @@ def game_scenario(question_data):
 
 
 
-# Display feedback
 def display_feedback(correct, explanation=""):
     global score
     screen.fill(WHITE)
@@ -576,7 +517,6 @@ def display_feedback(correct, explanation=""):
 
 
 
-# Game Over Screen
 def game_over():
     screen.blit(background_image, (0, 0))
     if hacker_health <= 0:
@@ -602,7 +542,7 @@ def game_over():
                     pygame.quit()
                     sys.exit()
 
-# Main Game Loop
+
 def main():
     global score, hacker_health, user_health
     score = 0
@@ -610,7 +550,7 @@ def main():
     user_health = 100
     main_menu()
     
-    # Randomly select and display scenarios
+
     while hacker_health > 0 and user_health > 0:
         question_data = random.choice(questions)
         correct, explanation = game_scenario(question_data)
