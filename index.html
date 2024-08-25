@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PyScript GitHub Pages Example</title>
+    <link rel="stylesheet" href="https://pyscript.net/1.0.0/pyscript.css">
+    <script defer src="https://pyscript.net/1.0.0/pyscript.js"></script>
+</head>
+<body>
+    <h1>Run Python Code with PyScript</h1>
+    <py-script>
+        import urllib.request
+
+        def run_python_file(url):
+            response = urllib.request.urlopen(url)
+            python_code = response.read().decode('utf-8')
+            exec(python_code)
+
+        # URL to the Python file on GitHub Pages
+        file_url = 'https://workwithnaveen7.github.io/Security-Awarness-Game/game_code.py'
+        run_python_file(file_url)
+    </py-script>
+</body>
+</html>
