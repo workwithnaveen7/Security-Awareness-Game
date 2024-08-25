@@ -264,22 +264,24 @@ def render_wrapped_text(text, y_pos, color=BLACK, font_type=font, max_width=WIDT
     words = text.split(' ')
     lines = []
     current_line = ""
-    
+
     for word in words:
         test_line = current_line + word + " "
         test_surface = font_type.render(test_line, True, color)
-        if test_surface.get_width() > max_width:
+        if test_surface.get_width() <= max_width:
+            current_line = test_line
+        else:
             lines.append(current_line)
             current_line = word + " "
-        else:
-            current_line = test_line
-    
+
     lines.append(current_line)
-    
-    for i, line in enumerate(lines):
+
+    for line in lines:
         text_surface = font_type.render(line, True, color)
-        text_rect = text_surface.get_rect(center=(WIDTH // 2, y_pos + i * font_type.get_height()))
+        text_rect = text_surface.get_rect(center=(WIDTH // 2, y_pos))
         screen.blit(text_surface, text_rect)
+        y_pos += text_surface.get_height()  # Move y_pos down for the next line
+
 
 
 
