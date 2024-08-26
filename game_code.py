@@ -280,7 +280,7 @@ def render_wrapped_text(text, y_pos, color=BLACK, font_type=font, max_width=WIDT
         text_surface = font_type.render(line, True, color)
         text_rect = text_surface.get_rect(center=(WIDTH // 2, y_pos))
         screen.blit(text_surface, text_rect)
-        y_pos += text_surface.get_height()  # Move y_pos down for the next line
+        y_pos += text_surface.get_height()  
 
 
 
@@ -304,8 +304,8 @@ def draw_health_bar(health, max_health, x, y):
     bar_width = 20
     bar_height = 100
     fill = (health / max_health) * bar_height
-    pygame.draw.rect(screen, BLACK, (x, y - bar_height, bar_width, bar_height), 2)  # Draw border
-    pygame.draw.rect(screen, RED if health <= max_health / 2 else GREEN, (x, y - fill, bar_width, fill))  # Draw fill
+    pygame.draw.rect(screen, BLACK, (x, y - bar_height, bar_width, bar_height), 2)  
+    pygame.draw.rect(screen, RED if health <= max_health / 2 else GREEN, (x, y - fill, bar_width, fill)) 
 
 
 def toggle_music():
@@ -415,22 +415,24 @@ def credits_screen():
 def main_menu():
     screen.blit(background_image, (0, 0))
 
-    # font for title
-    larger_title_font = pygame.font.Font(None, 100)  
+    #fonts
+    title_font = pygame.font.Font("fonts/track.ttf", 60)  
+    subtitle_font = pygame.font.Font("fonts/track.ttf", 30)
 
-    title_text_surface = larger_title_font.render("Security Awareness Game", True, LIME)
+
+    title_text_surface = title_font.render("Security Awareness Game", True, LIME)
     title_text_rect = title_text_surface.get_rect(center=(WIDTH // 2, 200))
     screen.blit(title_text_surface, title_text_rect)
 
-    subtitle_font = pygame.font.Font(None, 50) 
     subtitle_text_surface = subtitle_font.render("Test Your Knowledge and Stay Safe Online!", True, WHITE)
     subtitle_text_rect = subtitle_text_surface.get_rect(center=(WIDTH // 2, 300))
     screen.blit(subtitle_text_surface, subtitle_text_rect)
 
 
-    #pygame.draw.line(screen, BLACK, (150, 180), (850, 180), 5)  # Line above the title
-    pygame.draw.line(screen, BLACK, (150, 260), (850, 260), 5)  # Line below the subtitle
+    #pygame.draw.line(screen, BLACK, (150, 180), (850, 180), 5)
+    pygame.draw.line(screen, BLACK, (150, 260), (850, 260), 5)
 
+    button_font = pygame.font.Font("fonts/track.ttf", 50)
 
     start_button = draw_button("Start Game", 500, GRAY, font_type=button_font)
     settings_button = draw_button("Settings", 600, GRAY, font_type=button_font)
@@ -521,6 +523,10 @@ def display_feedback(correct, explanation=""):
 
 def game_over():
     screen.blit(background_image, (0, 0))
+
+    title_font = pygame.font.Font("fonts/track.ttf", 90)
+    button_font = pygame.font.Font("fonts/track.ttf", 50)
+
     if hacker_health <= 0:
         render_text_centered("You Win!", 200, GREEN, font_type=title_font)
     elif user_health <= 0:
