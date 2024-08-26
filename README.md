@@ -7,6 +7,7 @@ Welcome to the Security Awareness Game! This game is designed to test and enhanc
 - [Installation](#installation)
 - [How to Play](#how-to-play)
 - [Screenshots](#screenshots)
+- [Gameplay](#gameplay)
 
 ## Game Features
 - **Interactive Gameplay**: Engage in a series of questions about cybersecurity, with consequences for incorrect answers.
@@ -47,7 +48,10 @@ Welcome to the Security Awareness Game! This game is designed to test and enhanc
 
 ## Screenshots
 ![Main Menu](images/screenshot_main_menu.png)
-![Gameplay](gameplay/SecurityAwarenessGame_gameplay.mp4)
+
+## Gameplay
+
+https://github.com/user-attachments/assets/7f484fdf-16f3-405a-9fac-8941e1909d02
 
 
 
