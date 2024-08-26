@@ -51,7 +51,7 @@ Welcome to the Security Awareness Game! This game is designed to test and enhanc
 
 ## Gameplay
 
-https://github.com/user-attachments/assets/7f484fdf-16f3-405a-9fac-8941e1909d02
+https://github.com/user-attachments/assets/724120a2-28d4-4628-8ef8-bb5c3e019b28
 
 
 
