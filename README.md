@@ -47,8 +47,8 @@ Welcome to the Security Awareness Game! This game is designed to test and enhanc
 
 ## Screenshots
 ![Main Menu](images/screenshot_main_menu.png)
-![Gameplay](images/screenshot_gameplay.png)
-![Credits](images/screenshot_credits.png)
+![Gameplay](gameplay/SecurityAwarenessGame_gameplay.mp4)
+
 
 
 
